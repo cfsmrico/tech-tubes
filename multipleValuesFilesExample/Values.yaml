@@ -1,0 +1,5 @@
+taskCount: 2
+env:
+  - name: k1
+    value: v1
+maxRetries: 3

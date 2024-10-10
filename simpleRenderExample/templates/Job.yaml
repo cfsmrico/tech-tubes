@@ -1,0 +1,7 @@
+kind: Job
+metadata:
+  namespace: {{ .Values.namespace }}
+spec:
+  template:
+    spec:
+      taskCount: {{ .Values.taskCount | default 1 }}

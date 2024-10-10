@@ -1,0 +1,32 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: job
+  namespace: '563754701290'
+  labels:
+    cloud.googleapis.com/location: us-central1
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/client-name: cloud-console
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      taskCount: {{ .Values.taskCount | default 1 }}
+      template:
+        spec:
+          containers:
+          - name: job-1
+            image: us-docker.pkg.dev/cloudrun/container/job:latest
+            env:
+            {{- if .Values.env }}
+{{ toYaml .Values.env | indent 14 }}
+            {{- end }}
+{{ toYaml .Values.sreenv | indent 14 }}
+            resources:
+              limits:
+                cpu: 1000m
+                memory: 512Mi
+          maxRetries: {{ .Values.maxRetries | default 3 }}
+          timeoutSeconds: {{ .Values.timeoutSeconds | default 600 }}
+          serviceAccountName: {{ .Values.serviceAccountName }}

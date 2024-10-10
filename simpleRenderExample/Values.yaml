@@ -1,0 +1,4 @@
+someProperty: someValue
+namespace: 12345
+otherProperty: otherValue
+taskCount: 12
